@@ -1,0 +1,22 @@
+1. anda perlu instal 
+
+    >> pip install keras-facenet
+
+2. kemudian dalam program tambahkan:
+
+    from keras_facenet import FaceNet
+
+3. Ganti cara load facenet sebagai berikut (yang atas diganti dengna yang dibawah):
+
+    #MyFaceNet = load_model('facenet_keras.h5') -- bagian ini dihapus diganti denga nyang dibawah ini
+    MyFaceNet = FaceNet()
+
+4. Bagian normalisasi yang (face-mean)/std sudah tidak perlu. Dan perintah predict diganti dengan embeddings:
+
+    #face = face.astype('float32')                     -- bagian ini dihapus
+    #mean, std = face.mean(), face.std()        -- bagian ini dihapus
+    #face = (face - mean) / std                          -- bagian ini dihapus
+    
+    face = expand_dims(face, axis=0)
+    #signature = MyFaceNet.predict(face)     -- bagian ini dihapus diganti denga nyang dibawah ini
+    signature = MyFaceNet.embeddings(face)
